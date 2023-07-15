@@ -25,10 +25,16 @@
 <script setup>
   import { ref } from 'vue';
   import {showToast} from "vant";
+  import {useRouter} from "vue-router";
   const active = ref(0);
+  const router = useRouter()
   const onChange = (index) => showToast(`标签 ${index}`);
-  const onClickLeft = () => alert("返回");
-  const onClickRight = () => alert("右");
+  const onClickLeft = () => {
+    router.push('/')
+  };
+  const onClickRight = () => {
+    router.push('/search')
+  };
 
 </script>
 
