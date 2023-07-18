@@ -1,7 +1,7 @@
 <template>
   <form action="/">
     <van-search
-        v-model="value"
+        v-model="searchText"
         show-action
         placeholder="请输入标签进行搜索"
         @search="onSearch"
@@ -9,6 +9,7 @@
     />
   </form>
   <van-divider content-position="left">已选标签</van-divider>
+  <div v-if="activeIds.length === 0">请选择标签</div>
   <van-row gutter="16">
     <van-col v-for="tag in activeIds">
       <van-tag closeable size="medium" type="primary" @close="close(tag)">
@@ -26,14 +27,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { showToast } from 'vant';
-const value = ref('');
-const onSearch = (val) => showToast(val);
-const onCancel = () => showToast('取消');
-
+//选中的标签
 const activeIds = ref([]);
 const activeIndex = ref(0);
-const tagList = [
+const originTagList = [
   {
     text: '性别',
     children: [
@@ -50,11 +47,25 @@ const tagList = [
     ],
   },
 ];
+let tagList = ref(originTagList);
 const close = (tag) => {
   activeIds.value = activeIds.value.filter(item => {
     return item != tag;
   })
 }
+const searchText = ref('');
+const onSearch = (val) => {
+  tagList.value = originTagList.map(parentTag => {
+    const tempChildren = [...parentTag.children];
+    const tempParentTag = {...parentTag};
+    tempParentTag.children = tempChildren.filter((item => item.text.includes(searchText.value)))
+    return tempParentTag;
+  })
+};
+const onCancel = () => {
+  searchText.value = '';
+  tagList.value = originTagList;
+};
 </script>
 <style scoped>
 </style>
