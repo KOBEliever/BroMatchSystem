@@ -30,7 +30,7 @@
   const router = useRouter()
   const onChange = (index) => showToast(`标签 ${index}`);
   const onClickLeft = () => {
-    router.push('/')
+    router.back()
   };
   const onClickRight = () => {
     router.push('/search')

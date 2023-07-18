@@ -1,17 +1,33 @@
 <template>
-  <van-cell title="用户名" is-link :value="user.username"/>
-  <van-cell title="帐户" is-link :value="user.userAccount" />
-  <van-cell title="头像" is-link to="/user/edit" >
-    <van-image style="height: 40px" :src="user.avatarUrl" />
-  </van-cell>
-  <van-cell title="性别" is-link to="/user/edit" :value="user.gender" />
-  <van-cell title="电话" is-link to="/user/edit" :value="user.phone" />
-  <van-cell title="邮箱" is-link to="/user/edit" :value="user.email" />
-  <van-cell title="星球代码" :value="user.planetCode" />
-  <van-cell title="创建时间" :value="user.creatTime.toDateString()" />
+  <van-form @submit="onSubmit">
+      <van-field
+          v-model="editUser.currentValue"
+          :name="editUser.editKey"
+          :label="editUser.editName"
+          :placeholder="`请输入${editUser.editName}`"
+      />
+    <div style="margin: 16px;">
+      <van-button round block type="primary" native-type="submit">
+        提交
+      </van-button>
+    </div>
+  </van-form>
+
 </template>
 
-<script setup>
+<script setup lang="ts">
+import {useRoute, useRouter} from "vue-router";
+import {ref} from "vue";
+
+const route = useRoute();
+const editUser = ref({
+  editKey:route.query.editKey,
+  editName:route.query.editName,
+  currentValue:route.query.currentValue
+})
+const onSubmit = (values) => {
+  console.log('submit', values);
+};
 
 </script>
 
