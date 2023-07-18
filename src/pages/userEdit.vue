@@ -12,17 +12,6 @@
 </template>
 
 <script setup>
-const user = {
-  id: 1,
-  username: 'DWbubu',
-  userAccount:'dwbubu',
-  avatarUrl: 'http://q2.qlogo.cn/headimg_dl?dst_uin=1791612323&spec=100&t=1678434892319',
-  gender:1,
-  phone:'12345',
-  email:'12345@qq.com',
-  planetCode: '123',
-  creatTime: new Date(),
-}
 
 </script>
 
